@@ -7,45 +7,45 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: system-ui, sans-serif; background: #0a0f1e; color: #f0e6ff; }
-nav { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; border-bottom: 0.5px solid rgba(255,180,120,0.15); background: rgba(10,5,20,0.7); position: relative; z-index: 10; }
-nav .logo { font-size: 16px; font-weight: 500; color: #f8c97a; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; border-bottom: 0.5px solid rgba(255,180,120,0.15); background: rgba(10,5,20,0.7); position: relative; z-index: 10; }
+nav .logo { font-size: 28px; font-weight: 600; color: #f8c97a; text-decoration: none; }
 nav .links { display: flex; gap: 1.5rem; }
-nav .links a { font-size: 13px; color: rgba(240,220,200,0.6); text-decoration: none; cursor: pointer; }
+nav .links a { font-size: 14px; color: rgba(240,220,200,0.6); text-decoration: none; cursor: pointer; }
 nav .links a:hover { color: #f8c97a; }
-.hero { padding: 4rem 2rem 3.5rem; position: relative; z-index: 10; }
-.hero h1 { font-size: 32px; font-weight: 500; margin-bottom: 10px; color: #fff5e8; }
-.hero p { font-size: 15px; color: rgba(240,210,180,0.75); line-height: 1.7; max-width: 400px; }
-.hero-btns { display: flex; gap: 10px; margin-top: 1.5rem; }
-.btn-outline { background: transparent; color: #f8c97a; border: 0.5px solid rgba(248,201,122,0.4); padding: 9px 22px; border-radius: 8px; font-size: 13px; cursor: pointer; text-decoration: none; display: inline-block; }
-.section { padding: 2rem; border-top: 0.5px solid rgba(255,150,80,0.12); position: relative; z-index: 10; background: rgba(10,5,20,0.55); }
-.section-title { font-size: 11px; font-weight: 500; color: rgba(248,201,122,0.5); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1.25rem; }
-.skills-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-.skill-tag { background: rgba(248,201,122,0.08); border: 0.5px solid rgba(248,201,122,0.2); border-radius: 8px; padding: 5px 14px; font-size: 13px; color: #f8c97a; }
-.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-.project-card { background: rgba(255,150,80,0.05); border: 0.5px solid rgba(255,150,80,0.15); border-radius: 12px; padding: 1.25rem; }
-.project-card .tag { font-size: 11px; color: rgba(248,180,100,0.6); background: rgba(248,150,80,0.1); border-radius: 4px; padding: 2px 8px; display: inline-block; margin-bottom: 8px; }
-.project-card h3 { font-size: 14px; font-weight: 500; margin-bottom: 6px; color: #ffe8cc; }
-.project-card p { font-size: 12px; color: rgba(240,200,160,0.6); line-height: 1.6; }
-.project-card .tech { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
-.project-card .tech span { font-size: 11px; background: rgba(248,201,122,0.1); color: #f8c97a; border-radius: 4px; padding: 2px 8px; }
-.contact-row { display: flex; gap: 10px; flex-wrap: wrap; }
-.contact-btn { display: flex; align-items: center; gap: 6px; background: rgba(255,150,80,0.06); border: 0.5px solid rgba(255,150,80,0.15); border-radius: 8px; padding: 8px 16px; font-size: 13px; color: rgba(240,210,180,0.7); text-decoration: none; }
+.hero { padding: 5rem 2rem 4rem; position: relative; z-index: 10; }
+.hero h1 { font-size: 36px; font-weight: 500; margin-bottom: 12px; color: #fff5e8; }
+.hero p { font-size: 16px; color: rgba(240,210,180,0.75); line-height: 1.8; max-width: 450px; }
+.hero-btns { display: flex; gap: 12px; margin-top: 2rem; }
+.btn-outline { background: transparent; color: #f8c97a; border: 0.5px solid rgba(248,201,122,0.4); padding: 10px 24px; border-radius: 8px; font-size: 14px; cursor: pointer; text-decoration: none; display: inline-block; }
+.section { padding: 2.5rem 2rem; border-top: 0.5px solid rgba(255,150,80,0.12); position: relative; z-index: 10; background: rgba(10,5,20,0.55); }
+.section-title { font-size: 12px; font-weight: 500; color: rgba(248,201,122,0.5); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 1.5rem; }
+.skills-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+.skill-tag { background: rgba(248,201,122,0.08); border: 0.5px solid rgba(248,201,122,0.2); border-radius: 8px; padding: 6px 16px; font-size: 14px; color: #f8c97a; }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
+.project-card { background: rgba(255,150,80,0.05); border: 0.5px solid rgba(255,150,80,0.15); border-radius: 12px; padding: 1.5rem; }
+.project-card .tag { font-size: 12px; color: rgba(248,180,100,0.6); background: rgba(248,150,80,0.1); border-radius: 4px; padding: 3px 10px; display: inline-block; margin-bottom: 10px; }
+.project-card h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; color: #ffe8cc; }
+.project-card p { font-size: 14px; color: rgba(240,200,160,0.6); line-height: 1.7; }
+.project-card .tech { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.project-card .tech span { font-size: 12px; background: rgba(248,201,122,0.1); color: #f8c97a; border-radius: 4px; padding: 3px 10px; }
+.contact-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.contact-btn { display: flex; align-items: center; gap: 8px; background: rgba(255,150,80,0.06); border: 0.5px solid rgba(255,150,80,0.15); border-radius: 8px; padding: 10px 20px; font-size: 14px; color: rgba(240,210,180,0.7); text-decoration: none; }
 .contact-btn:hover { border-color: rgba(248,201,122,0.4); color: #f8c97a; }
-.online-dot { width: 7px; height: 7px; border-radius: 50%; background: #3ba870; display: inline-block; }
+.online-dot { width: 8px; height: 8px; border-radius: 50%; background: #3ba870; display: inline-block; }
 canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
 </style>
 </head>
 <body>
 <canvas id="sky"></canvas>
 <nav>
-  <span class="logo">Yiğit Emir Cengiz</span>
-  <div class="links"><a>about</a><a>projects</a><a>contact</a></div>
+  <a href="#" class="logo">Yiğit Emir Cengiz</a>
+  <div class="links"><a href="#about">about</a><a href="#projects">projects</a><a href="#contact">contact</a></div>
 </nav>
-<div class="hero">
-  <h1>Yiğit Emir Cengiz.</h1>
+<div id="about" class="hero">
+  <h1>Yiğit Emir Cengiz</h1>
   <p>Computer Engineering student building AI-powered chatbots and backend systems using Python.</p>
   <div class="hero-btns">
-    <a href="https://yigitemircengiz-creator.github.io/personal-portfolio-website/yigit_emir_cengiz.pdf" download="yigit_emir_cengiz.pdf" class="btn-outline">download CV</a>
+    <a href="https://yigitemircengiz-creator.github.io/personal-portfolio-website/yigit_emir_cengiz.pdf" target="_blank" class="btn-outline">download CV</a>
   </div>
 </div>
 <div class="section">
@@ -56,7 +56,7 @@ canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0
     <span class="skill-tag">Web Development</span><span class="skill-tag">AI / Chatbot</span>
   </div>
 </div>
-<div class="section">
+<div id="projects" class="section">
   <div class="section-title">projects</div>
   <div class="projects-grid">
     <div class="project-card">
@@ -75,7 +75,7 @@ canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0
     </a>
   </div>
 </div>
-<div class="section">
+<div id="contact" class="section">
   <div class="section-title">contact</div>
   <div class="contact-row">
     <span class="contact-btn"><span class="online-dot"></span> available for work</span>
