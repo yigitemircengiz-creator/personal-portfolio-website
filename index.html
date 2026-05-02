@@ -1,75 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yiğit Emir Cengiz</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; background: #0a0f1e; color: #f0e6ff; overflow-x: hidden; }
+canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; border-bottom: 0.5px solid rgba(255,180,120,0.15); background: rgba(10,5,20,0.8); position: sticky; top: 0; z-index: 100; }
+nav .logo { font-size: 24px; font-weight: 600; color: #f8c97a; text-decoration: none; }
+nav .links { display: flex; gap: 1.5rem; }
+nav .links a { font-size: 14px; color: rgba(240,220,200,0.6); text-decoration: none; cursor: pointer; }
+nav .links a:hover { color: #f8c97a; }
+
+.container { position: relative; z-index: 10; width: 100%; }
+
+.hero { padding: 8rem 2rem 4rem; text-align: left; }
+.hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 500; margin-bottom: 16px; color: #fff5e8; }
+.hero p { font-size: 18px; color: rgba(240,210,180,0.8); line-height: 1.8; max-width: 650px; }
+.hero-btns { display: flex; gap: 12px; margin-top: 2.5rem; }
+.btn-outline { background: rgba(248,201,122,0.05); color: #f8c97a; border: 0.5px solid rgba(248,201,122,0.4); padding: 12px 28px; border-radius: 8px; font-size: 14px; cursor: pointer; text-decoration: none; transition: 0.3s; }
+.btn-outline:hover { background: rgba(248,201,122,0.15); border-color: #f8c97a; }
+
+.section { padding: 4rem 2rem; border-top: 0.5px solid rgba(255,150,80,0.12); background: rgba(10,5,20,0.4); }
+.section-title { font-size: 12px; font-weight: 600; color: rgba(248,201,122,0.6); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 2rem; }
+
+.skills-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+.skill-tag { background: rgba(248,201,122,0.08); border: 0.5px solid rgba(248,201,122,0.2); border-radius: 8px; padding: 8px 20px; font-size: 14px; color: #f8c97a; }
+
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+.project-card { background: rgba(255,150,80,0.03); border: 1px solid rgba(255,150,80,0.12); border-radius: 16px; padding: 2rem; height: 100%; transition: 0.3s; display: flex; flex-direction: column; backdrop-filter: blur(5px); }
+.project-card:hover { transform: translateY(-8px); border-color: rgba(248,201,122,0.5); background: rgba(255,150,80,0.06); }
+.project-card .tag { font-size: 11px; color: #f8c97a; background: rgba(248,150,80,0.1); border-radius: 4px; padding: 4px 12px; display: inline-block; margin-bottom: 12px; width: fit-content; }
+.project-card h3 { font-size: 18px; margin-bottom: 12px; color: #ffe8cc; }
+.project-card p { font-size: 14px; color: rgba(240,200,160,0.7); line-height: 1.6; flex-grow: 1; }
+.project-card .tech { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
+.project-card .tech span { font-size: 12px; background: rgba(248,201,122,0.1); color: #f8c97a; border-radius: 4px; padding: 4px 10px; border: 0.5px solid rgba(248,201,122,0.2); }
+
+.contact-row { display: flex; gap: 15px; flex-wrap: wrap; }
+.contact-btn { display: flex; align-items: center; gap: 10px; background: rgba(255,150,80,0.06); border: 1px solid rgba(255,150,80,0.15); border-radius: 10px; padding: 12px 24px; font-size: 14px; color: rgba(240,210,180,0.8); text-decoration: none; transition: 0.3s; }
+.contact-btn:hover { border-color: #f8c97a; color: #f8c97a; background: rgba(248,201,122,0.05); }
+.online-dot { width: 8px; height: 8px; border-radius: 50%; background: #3ba870; box-shadow: 0 0 8px #3ba870; }
+</style>
+</head>
 <body>
+
 <canvas id="sky"></canvas>
-<nav>
-  <a href="#" class="logo">Yiğit Emir Cengiz</a>
-  <div class="links"><a href="#about">about</a><a href="#projects">projects</a><a href="#contact">contact</a></div>
-</nav>
 
-<div id="about" class="hero">
-  <h1>Yiğit Emir Cengiz</h1>
-  <p>Computer Engineering student with a strong focus on data science and full-stack development. Experienced with Python, C, and C++. Constantly learning, building, and looking for new challenges in the tech world.</p>
-  <div class="hero-btns">
-    <a href="https://yigitemircengiz-creator.github.io/personal-portfolio-website/yigit_emir_cengiz.pdf" target="_blank" class="btn-outline">download CV</a>
-  </div>
-</div>
+<div class="container">
+  <nav>
+    <a href="#" class="logo">Yiğit Emir Cengiz</a>
+    <div class="links"><a href="#about">about</a><a href="#projects">projects</a><a href="#contact">contact</a></div>
+  </nav>
 
-<div class="section">
-  <div class="section-title">skills</div>
-  <div class="skills-grid">
-    <span class="skill-tag">Python</span><span class="skill-tag">C</span><span class="skill-tag">C++</span>
-    <span class="skill-tag">HTML / CSS</span><span class="skill-tag">JavaScript</span>
-    <span class="skill-tag">Data Science</span><span class="skill-tag">Machine Learning</span>
-  </div>
-</div>
-
-<div id="projects" class="section">
-  <div class="section-title">projects</div>
-  <div class="projects-grid">
-    <div class="project-card">
-      <span class="tag">AI / Chatbot</span>
-      <h3>trendshop-ai</h3>
-      <p>A smart AI chatbot built with Python that automates customer communication efficiently.</p>
-      <div class="tech"><span>Python</span><span>AI</span><span>Automation</span></div>
-    </div>
-    <div class="project-card">
-      <span class="tag">Data Science</span>
-      <h3>Titanic-Survival-Prediction</h3>
-      <p>Exploratory data analysis and machine learning models to predict passenger survival on the Titanic.</p>
-      <div class="tech"><span>Jupyter</span><span>Python</span><span>ML</span></div>
-    </div>
-    <div class="project-card">
-      <span class="tag">Data Analysis</span>
-      <h3>Retail-Sales-Analysis</h3>
-      <p>Comprehensive analysis of retail data to identify trends, seasonal patterns, and sales performance.</p>
-      <div class="tech"><span>Jupyter</span><span>Pandas</span><span>Analytics</span></div>
-    </div>
-    <div class="project-card">
-      <span class="tag">Data Analysis</span>
-      <h3>Netflix-Analysis</h3>
-      <p>Data-driven insights into Netflix's content library, focusing on genres, release dates, and regional trends.</p>
-      <div class="tech"><span>Jupyter</span><span>Visualization</span></div>
-    </div>
-    <div class="project-card">
-      <span class="tag">Software</span>
-      <h3>Infinite-Calculator</h3>
-      <p>A robust command-line calculator written in C, designed for high precision and performance.</p>
-      <div class="tech"><span>C</span><span>Algorithms</span></div>
-    </div>
-    <div class="project-card">
-      <span class="tag">Web Development</span>
-      <h3>personal-portfolio-website</h3>
-      <p>Responsive personal portfolio website designed and developed using HTML, CSS, and JavaScript.</p>
-      <div class="tech"><span>HTML</span><span>CSS</span><span>JS</span></div>
+  <div id="about" class="hero">
+    <h1>Yiğit Emir Cengiz</h1>
+    <p>Computer Engineering student with a strong focus on data science and full-stack development. Experienced with Python, C, and C++. Constantly learning, building, and looking for new challenges in the tech world.</p>
+    <div class="hero-btns">
+      <a href="https://yigitemircengiz-creator.github.io/personal-portfolio-website/yigit_emir_cengiz.pdf" target="_blank" class="btn-outline">download CV</a>
     </div>
   </div>
-</div>
 
-<div id="contact" class="section">
-  <div class="section-title">contact</div>
-  <div class="contact-row">
-    <span class="contact-btn"><span class="online-dot"></span> available for work</span>
-    <a class="contact-btn" href="mailto:yigitemircengiz@gmail.com">✉ yigitemircengiz@gmail.com</a>
-    <a class="contact-btn" href="https://www.linkedin.com/in/yi%C4%9Fit-emir-cengiz" target="_blank">in LinkedIn</a>
+  <div class="section">
+    <div class="section-title">skills</div>
+    <div class="skills-grid">
+      <span class="skill-tag">Python</span>
+      <span class="skill-tag">C</span>
+      <span class="skill-tag">C++</span>
+      <span class="skill-tag">HTML / CSS</span>
+      <span class="skill-tag">JavaScript</span>
+      <span class="skill-tag">Data Science</span>
+      <span class="skill-tag">Machine Learning</span>
+    </div>
+  </div>
+
+  <div id="projects" class="section">
+    <div class="section-title">projects</div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <span class="tag">AI / Chatbot</span>
+        <h3>trendshop-ai</h3>
+        <p>A smart AI chatbot built with Python that automates customer communication efficiently.</p>
+        <div class="tech"><span>Python</span><span>AI</span><span>Automation</span></div>
+      </div>
+      <div class="project-card">
+        <span class="tag">Data Science</span>
+        <h3>Titanic-Survival-Prediction</h3>
+        <p>Exploratory data analysis and machine learning models to predict passenger survival on the Titanic.</p>
+        <div class="tech"><span>Jupyter</span><span>Python</span><span>ML</span></div>
+      </div>
+      <div class="project-card">
+        <span class="tag">Data Analysis</span>
+        <h3>Retail-Sales-Analysis</h3>
+        <p>Comprehensive analysis of retail data to identify trends, seasonal patterns, and sales performance.</p>
+        <div class="tech"><span>Jupyter</span><span>Pandas</span><span>Analytics</span></div>
+      </div>
+      <div class="project-card">
+        <span class="tag">Data Analysis</span>
+        <h3>Netflix-Analysis</h3>
+        <p>Data-driven insights into Netflix's content library, focusing on genres, release dates, and regional trends.</p>
+        <div class="tech"><span>Jupyter</span><span>Visualization</span></div>
+      </div>
+      <div class="project-card">
+        <span class="tag">Software</span>
+        <h3>Infinite-Calculator</h3>
+        <p>A robust command-line calculator written in C, designed for high precision and performance.</p>
+        <div class="tech"><span>C</span><span>Algorithms</span></div>
+      </div>
+      <div class="project-card">
+        <span class="tag">Web Development</span>
+        <h3>personal-portfolio-website</h3>
+        <p>Responsive personal portfolio website designed and developed using HTML, CSS, and JavaScript.</p>
+        <div class="tech"><span>HTML</span><span>CSS</span><span>JS</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="contact" class="section">
+    <div class="section-title">contact</div>
+    <div class="contact-row">
+      <span class="contact-btn"><span class="online-dot"></span> available for work</span>
+      <a class="contact-btn" href="mailto:yigitemircengiz@gmail.com">✉ yigitemircengiz@gmail.com</a>
+      <a class="contact-btn" href="https://www.linkedin.com/in/yi%C4%9Fit-emir-cengiz" target="_blank">in LinkedIn</a>
+    </div>
   </div>
 </div>
 
@@ -103,3 +158,4 @@ function draw() {
 resize(); window.addEventListener('resize',resize); draw();
 </script>
 </body>
+</html>
