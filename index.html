@@ -5,163 +5,244 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yiğit Emir Cengiz</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: system-ui, sans-serif; background: #0a0f1e; color: #f0e6ff; overflow-x: hidden; }
-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; border-bottom: 0.5px solid rgba(255,180,120,0.15); background: rgba(10,5,20,0.8); position: sticky; top: 0; z-index: 100; }
-nav .logo { font-size: 24px; font-weight: 600; color: #f8c97a; text-decoration: none; }
-nav .links { display: flex; gap: 1.5rem; }
-nav .links a { font-size: 14px; color: rgba(240,220,200,0.6); text-decoration: none; cursor: pointer; }
-nav .links a:hover { color: #f8c97a; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0514; color: #f0e6ff; overflow-x: hidden; }
+
+body::before {
+    content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    z-index: 1000; background-size: 100% 3px, 3px 100%; pointer-events: none;
+}
+
+canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
+
+.grid-floor {
+    position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%) perspective(400px) rotateX(60deg);
+    width: 200vw; height: 100vh;
+    background-image: linear-gradient(rgba(157, 0, 255, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(157, 0, 255, 0.2) 1px, transparent 1px);
+    background-size: 60px 60px; z-index: -1; mask-image: linear-gradient(to top, rgba(0,0,0,1), rgba(0,0,0,0));
+    animation: moveGrid 5s linear infinite;
+}
+@keyframes moveGrid { from { background-position: 0 0; } to { background-position: 0 60px; } }
+
+.stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: -3; }
+
+nav { 
+    display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4%; border-bottom: 2px solid #ff00ff55; 
+    background: rgba(10, 5, 20, 0.9); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); box-shadow: 0 0 20px #ff00ff22;
+}
+nav .logo { font-size: 26px; font-weight: 800; color: #00ffff; text-shadow: 0 0 10px #00ffff; text-decoration: none; }
+nav .links { display: flex; gap: 2rem; align-items: center; }
+nav .links a { font-size: 14px; color: #ff00ff; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+nav .links a:hover { color: #00ffff; text-shadow: 0 0 10px #00ffff; }
+
+.lang-switcher { position: relative; display: inline-block; }
+.lang-btn { background: transparent; border: 1px solid #ff00ff; color: #ff00ff; padding: 5px 10px; cursor: pointer; font-weight: 800; font-size: 12px; letter-spacing: 1px; }
+.lang-btn:hover { background: #ff00ff; color: #fff; }
+.lang-dropdown { position: absolute; top: 100%; right: 0; background: rgba(10, 5, 20, 0.95); border: 1px solid #ff00ff; display: none; min-width: 60px; z-index: 101; }
+.lang-dropdown div { padding: 8px 10px; color: #ff00ff; cursor: pointer; text-align: center; font-size: 12px; font-weight: 800; }
+.lang-dropdown div:hover { background: #ff00ff; color: #fff; }
+.lang-switcher:hover .lang-dropdown { display: block; }
 
 .container { position: relative; z-index: 10; width: 100%; }
 
-.hero { padding: 8rem 2rem 4rem; text-align: left; }
-.hero h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 500; margin-bottom: 16px; color: #fff5e8; }
-.hero p { font-size: 18px; color: rgba(240,210,180,0.8); line-height: 1.8; max-width: 650px; }
-.hero-btns { display: flex; gap: 12px; margin-top: 2.5rem; }
-.btn-outline { background: rgba(248,201,122,0.05); color: #f8c97a; border: 0.5px solid rgba(248,201,122,0.4); padding: 12px 28px; border-radius: 8px; font-size: 14px; cursor: pointer; text-decoration: none; transition: 0.3s; }
-.btn-outline:hover { background: rgba(248,201,122,0.15); border-color: #f8c97a; }
+.hero { 
+    width: 100%; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+    padding: 2rem 8%; background: rgba(10, 5, 20, 0.05); backdrop-filter: blur(1px);
+}
+.hero h1 { font-size: clamp(50px, 10vw, 100px); font-weight: 900; margin-bottom: 20px; color: #fff; text-shadow: 6px 6px #ff00ff, -3px -3px #00ffff; font-style: italic; line-height: 1; }
+.hero p { font-size: clamp(18px, 2.5vw, 26px); color: #f0e6ff; line-height: 1.5; max-width: 950px; margin-bottom: 40px; padding: 0 20px; text-shadow: 0 0 10px rgba(255, 0, 255, 0.3); }
 
-.section { padding: 4rem 2rem; border-top: 0.5px solid rgba(255,150,80,0.12); background: rgba(10,5,20,0.4); }
-.section-title { font-size: 12px; font-weight: 600; color: rgba(248,201,122,0.6); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 2rem; }
+.content-wrapper { width: 92%; max-width: 1600px; margin: 0 auto; }
+.section { padding: 6rem 0; border-top: 0.5px solid rgba(255, 150, 80, 0.12); }
+.section-title { font-size: 16px; font-weight: 800; color: #00ffff; text-transform: uppercase; letter-spacing: 0.5em; margin-bottom: 3rem; text-shadow: 0 0 10px #00ffff; text-align: center; }
 
-.skills-grid { display: flex; flex-wrap: wrap; gap: 12px; }
-.skill-tag { background: rgba(248,201,122,0.08); border: 0.5px solid rgba(248,201,122,0.2); border-radius: 8px; padding: 8px 20px; font-size: 14px; color: #f8c97a; }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; align-items: flex-start; }
+.skill-card { background: rgba(10, 5, 20, 0.7); border: 2px solid #ff00ff44; padding: 1.5rem; transition: 0.3s; cursor: pointer; text-align: center; }
+.skill-card:hover { border-color: #00ffff; box-shadow: 0 0 20px #00ffff33; }
+.skill-card h4 { color: #fff; font-size: 16px; font-weight: bold; text-transform: uppercase; }
 
-.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-.project-card { background: rgba(255,150,80,0.03); border: 1px solid rgba(255,150,80,0.12); border-radius: 16px; padding: 2rem; height: 100%; transition: 0.3s; display: flex; flex-direction: column; backdrop-filter: blur(5px); text-decoration: none; }
-.project-card:hover { transform: translateY(-8px); border-color: rgba(248,201,122,0.5); background: rgba(255,150,80,0.06); }
-.project-card .tag { font-size: 11px; color: #f8c97a; background: rgba(248,150,80,0.1); border-radius: 4px; padding: 4px 12px; display: inline-block; margin-bottom: 12px; width: fit-content; }
-.project-card h3 { font-size: 18px; margin-bottom: 12px; color: #ffe8cc; }
-.project-card p { font-size: 14px; color: rgba(240,200,160,0.7); line-height: 1.6; flex-grow: 1; }
-.project-card .tech { display: flex; gap: 8px; margin-top: 20px; flex-wrap: wrap; }
-.project-card .tech span { font-size: 12px; background: rgba(248,201,122,0.1); color: #f8c97a; border-radius: 4px; padding: 4px 10px; border: 0.5px solid rgba(248,201,122,0.2); }
+.projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; align-items: flex-start; }
+.interactive-card { background: rgba(10, 5, 20, 0.7); border: 2px solid #ff00ff44; padding: 2.5rem; transition: 0.3s; backdrop-filter: blur(10px); cursor: pointer; display: flex; flex-direction: column; }
+.interactive-card:hover { border-color: #00ffff; box-shadow: 0 0 30px #00ffff33; transform: translateY(-8px); }
+.interactive-card h3 { font-size: 22px; color: #00ffff; margin-bottom: 10px; text-shadow: 0 0 5px #00ffff; }
 
-.contact-row { display: flex; gap: 15px; flex-wrap: wrap; }
-.contact-btn { display: flex; align-items: center; gap: 10px; background: rgba(255,150,80,0.06); border: 1px solid rgba(255,150,80,0.15); border-radius: 10px; padding: 12px 24px; font-size: 14px; color: rgba(240,210,180,0.8); text-decoration: none; transition: 0.3s; }
-.contact-btn:hover { border-color: #f8c97a; color: #f8c97a; background: rgba(248,201,122,0.05); }
-.online-dot { width: 8px; height: 8px; border-radius: 50%; background: #3ba870; box-shadow: 0 0 8px #3ba870; }
+.card-details { max-height: 0; opacity: 0; overflow: hidden; transition: 0.4s; }
+.card-details.active { max-height: 600px; opacity: 1; margin-top: 15px; }
+
+.card-details p { font-family: 'VT323', monospace; font-size: 20px; color: #00e5e5; text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); line-height: 1.4; background: rgba(0, 255, 255, 0.05); padding: 12px; border-left: 2px solid #00e5e5; text-align: left; }
+.card-details.active p::before { content: "> "; color: #ff00ff; }
+
+.action-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; font-weight: 800; color: #0a0514; background: #00ffff; padding: 14px 30px; text-decoration: none; transition: 0.3s; text-transform: uppercase; }
+.action-link:hover { background: #fff; box-shadow: 0 0 20px #fff; }
+
+.github-btn { background: #00ffff !important; color: #0a0514 !important; }
+.github-btn:hover { background: #fff !important; color: #00ffff !important; box-shadow: 0 0 20px #fff; }
 </style>
 </head>
 <body>
 
+<div class="stars" id="stars"></div>
 <canvas id="sky"></canvas>
+<div class="grid-floor"></div>
 
 <div class="container">
-  <nav>
-    <a href="#" class="logo">Yiğit Emir Cengiz</a>
-    <div class="links"><a href="#about">about</a><a href="#projects">projects</a><a href="#contact">contact</a></div>
-  </nav>
+    <nav>
+        <a href="#" class="logo">Yiğit Emir Cengiz</a>
+        <div class="links">
+            <a href="#about" data-lang="nav_about">about</a>
+            <a href="#skills" data-lang="nav_skills">skills</a>
+            <a href="#projects" data-lang="nav_projects">projects</a>
+            <a href="#contact" data-lang="nav_contact">contact</a>
+            <div class="lang-switcher">
+                <button class="lang-btn" id="lang-current">ENG</button>
+                <div class="lang-dropdown">
+                    <div onclick="switchLanguage('ENG')">ENG</div>
+                    <div onclick="switchLanguage('TUR')">TUR</div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-  <div id="about" class="hero">
-    <h1>Yiğit Emir Cengiz</h1>
-    <p>Computer Engineering student with a strong focus on data science and full-stack development. Experienced with Python, C, and C++. Constantly learning, building, and looking for new challenges in the tech world.</p>
-    <div class="hero-btns">
-      <a href="https://yigitemircengiz-creator.github.io/personal-portfolio-website/yigit_emir_cengiz_ostim.pdf" target="_blank" download="yigit_emir_cengiz_ostim.pdf" class="btn-outline">download CV</a>
+    <div id="about" class="hero">
+        <h1>Yiğit Emir Cengiz</h1>
+        <p data-lang="hero_desc">Computer Engineering student with a strong focus on data science and full-stack development. Experienced with Python, C, and C++. Constantly learning, building, and looking for new challenges in the tech world.</p>
+        <div class="hero-btns">
+            <a href="https://yigitemircengiz-creator.github.io/personal-portfolio-website/yigit_emir_cengiz_ostim.pdf" target="_blank" class="action-link" style="background: #ff00ff; color: #fff; min-width: 250px;" data-lang="btn_cv">DOWNLOAD CV</a>
+        </div>
     </div>
-  </div>
 
-  <div class="section">
-    <div class="section-title">skills</div>
-    <div class="skills-grid">
-      <span class="skill-tag">Python</span>
-      <span class="skill-tag">C</span>
-      <span class="skill-tag">C++</span>
-      <span class="skill-tag">HTML / CSS</span>
-      <span class="skill-tag">JavaScript</span>
-      <span class="skill-tag">Data Science</span>
-      <span class="skill-tag">Machine Learning</span>
-    </div>
-  </div>
+    <div class="content-wrapper">
+        <div id="skills" class="section">
+            <div class="section-title" data-lang="sec_skills">SKILLS</div>
+            <div class="skills-grid">
+                <div class="skill-card" onclick="toggleCardSimple(this)"><h4>PYTHON</h4><div class="card-details"><p data-lang="skill_py">Used for automation, data science, and predictive modeling using Pandas and NumPy.</p></div></div>
+                <div class="skill-card" onclick="toggleCardSimple(this)"><h4>C</h4><div class="card-details"><p data-lang="skill_c">System programming and memory management; Infinite-Calculator backend.</p></div></div>
+                <div class="skill-card" onclick="toggleCardSimple(this)"><h4>C++</h4><div class="card-details"><p data-lang="skill_cpp">Object-oriented programming and high-performance technical development.</p></div></div>
+                <div class="skill-card" onclick="toggleCardSimple(this)"><h4>DATA SCIENCE</h4><div class="card-details"><p data-lang="skill_ds">Extracting insights via statistical analysis, predictive modeling (ML), and feature engineering.</p></div></div>
+                <div class="skill-card" onclick="toggleCardSimple(this)"><h4>FULL-STACK</h4><div class="card-details"><p data-lang="skill_fs">Responsive development using HTML, CSS, and modern framework logic.</p></div></div>
+            </div>
+        </div>
 
-  <div id="projects" class="section">
-    <div class="section-title">projects</div>
-    <div class="projects-grid">
-      <a href="https://github.com/yigitemircengiz-creator/trendshop-ai" target="_blank" class="project-card">
-        <span class="tag">AI / Chatbot</span>
-        <h3>trendshop-ai</h3>
-        <p>A smart AI chatbot built with Python that automates customer communication efficiently.</p>
-        <div class="tech"><span>Python</span><span>AI</span><span>Automation</span></div>
-      </a>
-      <a href="https://github.com/yigitemircengiz-creator/Turkish-lesson-tracking-system" target="_blank" class="project-card">
-        <span class="tag">Full-Stack</span>
-        <h3>Turkish-lesson-tracking-system</h3>
-        <p>Course Tracking and Exam Planner: A Django-based personal academic assistant with a modern UI design and real-time exam countdown timer.</p>
-        <div class="tech"><span>Django</span><span>Python</span><span>UI/UX</span></div>
-      </a>
-      <a href="https://github.com/yigitemircengiz-creator/Titanic-Survival-Prediction" target="_blank" class="project-card">
-        <span class="tag">Data Science</span>
-        <h3>Titanic-Survival-Prediction</h3>
-        <p>Exploratory data analysis and machine learning models to predict passenger survival on the Titanic.</p>
-        <div class="tech"><span>Jupyter</span><span>Python</span><span>ML</span></div>
-      </a>
-      <a href="https://github.com/yigitemircengiz-creator/Retail-Sales-Analysis" target="_blank" class="project-card">
-        <span class="tag">Data Analysis</span>
-        <h3>Retail-Sales-Analysis</h3>
-        <p>Comprehensive analysis of retail data to identify trends, seasonal patterns, and sales performance.</p>
-        <div class="tech"><span>Jupyter</span><span>Pandas</span><span>Analytics</span></div>
-      </a>
-      <a href="https://github.com/yigitemircengiz-creator/Netflix-Analysis" target="_blank" class="project-card">
-        <span class="tag">Data Analysis</span>
-        <h3>Netflix-Analysis</h3>
-        <p>Data-driven insights into Netflix's content library, focusing on genres, release dates, and regional trends.</p>
-        <div class="tech"><span>Jupyter</span><span>Visualization</span></div>
-      </a>
-      <a href="https://github.com/yigitemircengiz-creator/Infinite-Calculator" target="_blank" class="project-card">
-        <span class="tag">Software</span>
-        <h3>Infinite-Calculator</h3>
-        <p>A robust command-line calculator written in C, designed for high precision and performance.</p>
-        <div class="tech"><span>C</span><span>Algorithms</span></div>
-      </a>
-      <a href="https://github.com/yigitemircengiz-creator/personal-portfolio-website" target="_blank" class="project-card">
-        <span class="tag">Web Development</span>
-        <h3>personal-portfolio-website</h3>
-        <p>Responsive personal portfolio website designed and developed using HTML, CSS, and JavaScript.</p>
-        <div class="tech"><span>HTML</span><span>CSS</span><span>JS</span></div>
-      </a>
-    </div>
-  </div>
+        <div id="projects" class="section">
+            <div class="section-title" data-lang="sec_projects">PROJECTS</div>
+            <div class="projects-grid">
+                <div class="interactive-card" onclick="toggleCardSimple(this)"><h4 style="color:#ff00ff; font-size:12px;" data-lang="tag_ai">AI / CHATBOT</h4><h3>trendshop-ai</h3><div class="card-details"><p data-lang="proj_trend">AI chatbot built with Python for automated customer communication.</p><a href="https://github.com/yigitemircengiz-creator/trendshop-ai" target="_blank" class="action-link" onclick="event.stopPropagation()">GITHUB ↗</a></div></div>
+                <div class="interactive-card" onclick="toggleCardSimple(this)"><h4 style="color:#ff00ff; font-size:12px;" data-lang="tag_ml">MACHINE LEARNING</h4><h3>Titanic-Survival</h3><div class="card-details"><p data-lang="proj_tit">ML model achieved 564th place globally. Optimized for survival prediction.</p><a href="https://github.com/yigitemircengiz-creator/Titanic-Survival-Prediction" target="_blank" class="action-link" onclick="event.stopPropagation()">GITHUB ↗</a></div></div>
+                <div class="interactive-card" onclick="toggleCardSimple(this)"><h4 style="color:#ff00ff; font-size:12px;" data-lang="tag_c">C / RAYLIB</h4><h3>Infinite-Calculator</h3><div class="card-details"><p data-lang="proj_inf">High-precision calculator in C using Raylib for frontend implementation.</p><a href="https://github.com/yigitemircengiz-creator/Infinite-Calculator" target="_blank" class="action-link" onclick="event.stopPropagation()">GITHUB ↗</a></div></div>
+                <div class="interactive-card" onclick="toggleCardSimple(this)"><h4 style="color:#ff00ff; font-size:12px;" data-lang="tag_dj">DJANGO</h4><h3>lesson-tracking</h3><div class="card-details"><p data-lang="proj_les">Academic planner with real-time countdown timer and responsive design.</p><a href="https://github.com/yigitemircengiz-creator/Turkish-lesson-tracking-system" target="_blank" class="action-link" onclick="event.stopPropagation()">GITHUB ↗</a></div></div>
+                <div class="interactive-card" onclick="toggleCardSimple(this)"><h4 style="color:#ff00ff; font-size:12px;" data-lang="tag_dv">DATA VISUALIZATION</h4><h3>Retail-Sales</h3><div class="card-details"><p data-lang="proj_ret">Analysis of retail sales performance identifying seasonal patterns.</p><a href="https://github.com/yigitemircengiz-analysis/Retail-Sales-Analysis" target="_blank" class="action-link" onclick="event.stopPropagation()">GITHUB ↗</a></div></div>
+                <div class="interactive-card" onclick="toggleCardSimple(this)"><h4 style="color:#ff00ff; font-size:12px;" data-lang="tag_dv">DATA VISUALIZATION</h4><h3>Netflix-Analysis</h3><div class="card-details"><p data-lang="proj_net">Deep dive into global Netflix library trends and regional content.</p><a href="https://github.com/yigitemircengiz-creator/Netflix-Analysis" target="_blank" class="action-link" onclick="event.stopPropagation()">GITHUB ↗</a></div></div>
+                <div class="interactive-card" onclick="toggleCardSimple(this)"><h4 style="color:#ff00ff; font-size:12px;" data-lang="tag_web">WEB</h4><h3>Portfolio</h3><div class="card-details"><p data-lang="proj_port">Custom-built portfolio website to showcase GitHub repositories.</p><a href="https://github.com/yigitemircengiz-creator/personal-portfolio-website" target="_blank" class="action-link" onclick="event.stopPropagation()">GITHUB ↗</a></div></div>
+            </div>
+        </div>
 
-  <div id="contact" class="section">
-    <div class="section-title">contact</div>
-    <div class="contact-row">
-      <span class="contact-btn"><span class="online-dot"></span> available for work</span>
-      <a class="contact-btn" href="mailto:yigitemircengiz@gmail.com">✉ yigitemircengiz@gmail.com</a>
-      <a class="contact-btn" href="https://www.linkedin.com/in/yi%C4%9Fit-emir-cengiz" target="_blank">in LinkedIn</a>
+        <div id="contact" class="section">
+            <div class="section-title" data-lang="sec_contact">CONTACT</div>
+            <div class="interactive-card" style="width: 100%; align-items: center; text-align: center;">
+                <h3 data-lang="cont_status">Available for Work</h3>
+                <div class="card-details active" style="width: 100%;">
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px; justify-content: center;">
+                        <a class="action-link" href="mailto:yigitemircengiz@gmail.com" data-lang="btn_email">Email</a>
+                        <a class="action-link" href="https://www.linkedin.com/in/yi%C4%9Fit-emir-cengiz" target="_blank">LinkedIn</a>
+                        <a class="action-link github-btn" href="https://github.com/yigitemircengiz-creator" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
+const langData = {
+    'ENG': {
+        'nav_about': 'about', 'nav_skills': 'skills', 'nav_projects': 'projects', 'nav_contact': 'contact',
+        'hero_desc': 'Computer Engineering student with a strong focus on data science and full-stack development. Experienced with Python, C, and C++. Constantly learning, building, and looking for new challenges in the tech world.',
+        'btn_cv': 'DOWNLOAD CV', 'sec_skills': 'SKILLS', 'sec_projects': 'PROJECTS', 'sec_contact': 'CONTACT',
+        'skill_py': 'Used for automation, data science, and predictive modeling using Pandas and NumPy.',
+        'skill_c': 'System programming and memory management; Infinite-Calculator backend.',
+        'skill_cpp': 'Object-oriented programming and high-performance technical development.',
+        'skill_ds': 'Extracting insights via statistical analysis, predictive modeling (ML), and feature engineering.',
+        'skill_fs': 'Responsive development using HTML, CSS, and modern framework logic.',
+        'tag_ai': 'AI / CHATBOT', 'tag_ml': 'MACHINE LEARNING', 'tag_c': 'C / RAYLIB', 'tag_dj': 'DJANGO', 'tag_dv': 'DATA VISUALIZATION', 'tag_web': 'WEB',
+        'proj_trend': 'AI chatbot built with Python for automated customer communication.',
+        'proj_tit': 'ML model achieved 564th place globally. Optimized for survival prediction.',
+        'proj_inf': 'High-precision calculator in C using Raylib for frontend implementation.',
+        'proj_les': 'Academic planner with real-time countdown timer and responsive design.',
+        'proj_ret': 'Analysis of retail sales performance identifying seasonal patterns.',
+        'proj_net': 'Deep dive into global Netflix library trends and regional content.',
+        'proj_port': 'Custom-built portfolio website to showcase GitHub repositories.',
+        'cont_status': 'Available for Work', 'btn_email': 'Email'
+    },
+    'TUR': {
+        'nav_about': 'hakkımda', 'nav_skills': 'yetenekler', 'nav_projects': 'projeler', 'nav_contact': 'iletişim',
+        'hero_desc': 'Veri bilimi ve full-stack geliştirmeye odaklanmış Bilgisayar Mühendisliği öğrencisi. Python, C ve C++ dillerinde deneyimli. Teknoloji dünyasında sürekli öğrenen, üreten ve yeni zorluklar arayan biri.',
+        'btn_cv': 'CV İNDİR', 'sec_skills': 'YETENEKLER', 'sec_projects': 'PROJELER', 'sec_contact': 'İLETİŞİM',
+        'skill_py': 'Otomasyon, veri bilimi ve Pandas/NumPy kullanarak tahmini modelleme çalışmaları.',
+        'skill_c': 'Düşük seviyeli sistem programlama ve bellek yönetimi; Infinite-Calculator altyapısı.',
+        'skill_cpp': 'Nesne yönelimli programlama ve yüksek performanslı teknik geliştirme süreçleri.',
+        'skill_ds': 'İstatistiksel analiz, tahmini modelleme (ML) ve veri mühendisliği ile anlamlı çıkarımlar.',
+        'skill_fs': 'HTML, CSS ve modern framework mantığı ile duyarlı (responsive) web geliştirme.',
+        'tag_ai': 'YAPAY ZEKA', 'tag_ml': 'MAKİNE ÖĞRENMESİ', 'tag_c': 'C / RAYLIB', 'tag_dj': 'DJANGO', 'tag_dv': 'VERİ GÖRSELLEŞTİRME', 'tag_web': 'WEB',
+        'proj_trend': 'Müşteri iletişimini otomatize eden Python tabanlı akıllı yapay zeka botu.',
+        'proj_tit': 'Küresel bazda 564.lük derecesi. Hayatta kalma tahmini için optimize edilmiş ML modeli.',
+        'proj_inf': 'C dili ve Raylib kütüphanesi kullanılarak geliştirilmiş yüksek hassasiyetli hesap makinesi.',
+        'proj_les': 'Gerçek zamanlı geri sayım sayacı ve duyarlı tasarıma sahip akademik planlayıcı.',
+        'proj_ret': 'Perakende satış verilerinde mevsimsel trendlerin ve performans paternlerinin analizi.',
+        'proj_net': 'Netflix kütüphanesindeki küresel trendlerin ve tür popülerliklerinin derinlemesine analizi.',
+        'proj_port': 'GitHub projelerini ve teknik yetenekleri sergilemek için özel geliştirilmiş portfolyo sitesi.',
+        'cont_status': 'Çalışmaya Hazır', 'btn_email': 'E-posta'
+    }
+};
+
+function switchLanguage(lang) {
+    document.getElementById('lang-current').innerText = lang;
+    const elements = document.querySelectorAll('[data-lang]');
+    elements.forEach(el => {
+        const key = el.getAttribute('data-lang');
+        if (langData[lang][key]) {
+            el.innerText = langData[lang][key];
+        }
+    });
+}
+
+function toggleCardSimple(element) {
+    const details = element.querySelector('.card-details');
+    if (element.closest('#contact')) return;
+    const isActive = details.classList.contains('active');
+    document.querySelectorAll('.card-details').forEach(d => {
+        if (!d.closest('#contact')) d.classList.remove('active');
+    });
+    if (!isActive) details.classList.add('active');
+}
+
 const canvas = document.getElementById('sky');
 const ctx = canvas.getContext('2d');
+const starsContainer = document.getElementById('stars');
 let W, H, t = 0;
+
 function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-function lerp(a, b, x) { return a + (b-a)*x; }
-function draw() {
-  t += 0.003; const c = (Math.sin(t)+1)/2;
-  const tC = [[8,4,18],[30,10,50],[80,20,60],[160,60,30],[200,100,40]];
-  const bC = [[20,8,35],[60,15,40],[140,40,20],[220,120,50],[240,160,80]];
-  const s = tC.length-1, pos = c*s, i = Math.min(Math.floor(pos),s-1), f = pos-i;
-  const tc = tC[i].map((v,j)=>lerp(v,tC[i+1][j],f));
-  const bc = bC[i].map((v,j)=>lerp(v,bC[i+1][j],f));
-  const g = ctx.createLinearGradient(0,0,0,H);
-  g.addColorStop(0,`rgb(${tc.map(Math.round)})`);
-  g.addColorStop(0.55,`rgb(${bc.map(Math.round)})`);
-  g.addColorStop(1,'rgb(10,4,20)');
-  ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
-  const sy=H*(.25+.15*(1-c)), sr=28+8*c, sa=.55+.35*c;
-  const sg=ctx.createRadialGradient(W*.62,sy,0,W*.62,sy,sr*2.5);
-  sg.addColorStop(0,`rgba(255,220,120,${sa})`);
-  sg.addColorStop(.3,`rgba(255,140,50,${sa*.6})`);
-  sg.addColorStop(1,'rgba(255,80,20,0)');
-  ctx.fillStyle=sg; ctx.beginPath(); ctx.arc(W*.62,sy,sr*2.5,0,Math.PI*2); ctx.fill();
-  ctx.fillStyle=`rgba(255,210,100,${sa*.9})`; ctx.beginPath(); ctx.arc(W*.62,sy,sr,0,Math.PI*2); ctx.fill();
-  requestAnimationFrame(draw);
+
+for(let i=0; i<150; i++) {
+    const star = document.createElement('div');
+    star.style.position = 'absolute'; star.style.width = Math.random() * 3 + 'px'; star.style.height = star.style.width;
+    star.style.background = '#fff'; star.style.borderRadius = '50%';
+    star.style.top = Math.random() * 100 + '%'; star.style.left = Math.random() * 100 + '%';
+    star.style.opacity = Math.random(); star.style.boxShadow = '0 0 10px #fff';
+    starsContainer.appendChild(star);
 }
-resize(); window.addEventListener('resize',resize); draw();
+
+function draw() {
+    t += 0.01; resize();
+    const g = ctx.createLinearGradient(0,0,0,H);
+    g.addColorStop(0, '#0a0514'); g.addColorStop(0.5, '#1a0828'); g.addColorStop(1, '#0a0514');
+    ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+    requestAnimationFrame(draw);
+}
+draw();
 </script>
 </body>
 </html>
