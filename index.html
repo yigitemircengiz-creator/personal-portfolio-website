@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Yiğit Emir Cengiz | Computer Engineering Student & AI Enthusiast</title>
+<meta name="google-site-verification" content="P1BGWk_O-8X6SDkATj7op5tYUCkRwzzMM7WF-HDprT4" />
 <meta name="description" content="Personal portfolio of Yiğit Emir Cengiz. Computer Engineering student at OSTİM Technical University focusing on Machine Learning, Data Science, and Full-Stack Development.">
 <meta name="keywords" content="Yiğit Emir Cengiz, Portfolio, Computer Engineering, Machine Learning, Data Science, Python, C++, OSTİM Technical University">
 <meta property="og:title" content="Yiğit Emir Cengiz Portfolio">
@@ -11,19 +12,15 @@
 <meta property="og:type" content="website">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0a0514; color: #f0e6ff; overflow-x: hidden; }
-
 body::before {
     content: " "; display: block; position: fixed; top: 0; left: 0; bottom: 0; right: 0;
     background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
     z-index: 1000; background-size: 100% 3px, 3px 100%; pointer-events: none;
 }
-
 canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
-
 .grid-floor {
     position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%) perspective(400px) rotateX(60deg);
     width: 200vw; height: 100vh;
@@ -32,9 +29,7 @@ canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -
     animation: moveGrid 5s linear infinite;
 }
 @keyframes moveGrid { from { background-position: 0 0; } to { background-position: 0 60px; } }
-
 .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: transparent; z-index: -3; }
-
 nav { 
     display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 4%; border-bottom: 2px solid #ff00ff55; 
     background: rgba(10, 5, 20, 0.9); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); box-shadow: 0 0 20px #ff00ff22;
@@ -43,7 +38,6 @@ nav .logo { font-size: 26px; font-weight: 800; color: #00ffff; text-shadow: 0 0 
 nav .links { display: flex; gap: 2rem; align-items: center; }
 nav .links a { font-size: 14px; color: #ff00ff; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
 nav .links a:hover { color: #00ffff; text-shadow: 0 0 10px #00ffff; }
-
 .lang-switcher { position: relative; display: inline-block; }
 .lang-btn { background: transparent; border: 1px solid #ff00ff; color: #ff00ff; padding: 5px 10px; cursor: pointer; font-weight: 800; font-size: 12px; letter-spacing: 1px; }
 .lang-btn:hover { background: #ff00ff; color: #fff; }
@@ -51,49 +45,38 @@ nav .links a:hover { color: #00ffff; text-shadow: 0 0 10px #00ffff; }
 .lang-dropdown div { padding: 8px 10px; color: #ff00ff; cursor: pointer; text-align: center; font-size: 12px; font-weight: 800; }
 .lang-dropdown div:hover { background: #ff00ff; color: #fff; }
 .lang-switcher:hover .lang-dropdown { display: block; }
-
 .container { position: relative; z-index: 10; width: 100%; }
-
 .hero { 
     width: 100%; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
     padding: 2rem 8%; background: rgba(10, 5, 20, 0.05); backdrop-filter: blur(1px);
 }
 .hero h1 { font-size: clamp(50px, 10vw, 100px); font-weight: 900; margin-bottom: 20px; color: #fff; text-shadow: 6px 6px #ff00ff, -3px -3px #00ffff; font-style: italic; line-height: 1; }
 .hero p { font-size: clamp(18px, 2.5vw, 26px); color: #f0e6ff; line-height: 1.5; max-width: 950px; margin-bottom: 40px; padding: 0 20px; text-shadow: 0 0 10px rgba(255, 0, 255, 0.3); }
-
 .content-wrapper { width: 92%; max-width: 1600px; margin: 0 auto; }
 .section { padding: 6rem 0; border-top: 0.5px solid rgba(255, 150, 80, 0.12); }
 .section-title { font-size: 16px; font-weight: 800; color: #00ffff; text-transform: uppercase; letter-spacing: 0.5em; margin-bottom: 3rem; text-shadow: 0 0 10px #00ffff; text-align: center; }
-
 .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; align-items: flex-start; }
 .skill-card { background: rgba(10, 5, 20, 0.7); border: 2px solid #ff00ff44; padding: 1.5rem; transition: 0.3s; cursor: pointer; text-align: center; }
 .skill-card:hover { border-color: #00ffff; box-shadow: 0 0 20px #00ffff33; }
 .skill-card h4 { color: #fff; font-size: 16px; font-weight: bold; text-transform: uppercase; }
-
 .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 24px; align-items: flex-start; }
 .interactive-card { background: rgba(10, 5, 20, 0.7); border: 2px solid #ff00ff44; padding: 2.5rem; transition: 0.3s; backdrop-filter: blur(10px); cursor: pointer; display: flex; flex-direction: column; }
 .interactive-card:hover { border-color: #00ffff; box-shadow: 0 0 30px #00ffff33; transform: translateY(-8px); }
 .interactive-card h3 { font-size: 22px; color: #00ffff; margin-bottom: 10px; text-shadow: 0 0 5px #00ffff; }
-
 .card-details { max-height: 0; opacity: 0; overflow: hidden; transition: 0.4s; }
 .card-details.active { max-height: 600px; opacity: 1; margin-top: 15px; }
-
 .card-details p { font-family: 'VT323', monospace; font-size: 20px; color: #00e5e5; text-shadow: 0 0 5px rgba(0, 255, 255, 0.5); line-height: 1.4; background: rgba(0, 255, 255, 0.05); padding: 12px; border-left: 2px solid #00e5e5; text-align: left; }
 .card-details.active p::before { content: "> "; color: #ff00ff; }
-
 .action-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; font-weight: 800; color: #0a0514; background: #00ffff; padding: 14px 30px; text-decoration: none; transition: 0.3s; text-transform: uppercase; }
 .action-link:hover { background: #fff; box-shadow: 0 0 20px #fff; }
-
 .github-btn { background: #00ffff !important; color: #0a0514 !important; }
 .github-btn:hover { background: #fff !important; color: #00ffff !important; box-shadow: 0 0 20px #fff; }
 </style>
 </head>
 <body>
-
 <div class="stars" id="stars"></div>
 <canvas id="sky"></canvas>
 <div class="grid-floor"></div>
-
 <div class="container">
     <nav>
         <a href="#" class="logo">Yiğit Emir Cengiz</a>
@@ -111,7 +94,6 @@ nav .links a:hover { color: #00ffff; text-shadow: 0 0 10px #00ffff; }
             </div>
         </div>
     </nav>
-
     <div id="about" class="hero">
         <h1>Yiğit Emir Cengiz</h1>
         <p data-lang="hero_desc">Computer Engineering student with a strong focus on data science and full-stack development. Experienced with Python, C, and C++. Constantly learning, building, and looking for new challenges in the tech world.</p>
@@ -119,7 +101,6 @@ nav .links a:hover { color: #00ffff; text-shadow: 0 0 10px #00ffff; }
             <a href="https://yigitemircengiz-creator.github.io/personal-portfolio-website/yigit_emir_cengiz_ostim.pdf" target="_blank" class="action-link" style="background: #ff00ff; color: #fff; min-width: 250px;" data-lang="btn_cv">DOWNLOAD CV</a>
         </div>
     </div>
-
     <div class="content-wrapper">
         <div id="skills" class="section">
             <h2 class="section-title" data-lang="sec_skills">SKILLS</h2>
@@ -131,7 +112,6 @@ nav .links a:hover { color: #00ffff; text-shadow: 0 0 10px #00ffff; }
                 <div class="skill-card" onclick="toggleCardSimple(this)"><h4>FULL-STACK</h4><div class="card-details"><p data-lang="skill_fs">Responsive development using HTML, CSS, and modern framework logic.</p></div></div>
             </div>
         </div>
-
         <div id="projects" class="section">
             <h2 class="section-title" data-lang="sec_projects">PROJECTS</h2>
             <div class="projects-grid">
@@ -144,7 +124,6 @@ nav .links a:hover { color: #00ffff; text-shadow: 0 0 10px #00ffff; }
                 <div class="interactive-card" onclick="toggleCardSimple(this)"><h4 style="color:#ff00ff; font-size:12px;" data-lang="tag_web">WEB</h4><h3>Portfolio</h3><div class="card-details"><p data-lang="proj_port">Custom-built portfolio website to showcase GitHub repositories.</p><a href="https://github.com/yigitemircengiz-creator/personal-portfolio-website" target="_blank" class="action-link" onclick="event.stopPropagation()">GITHUB ↗</a></div></div>
             </div>
         </div>
-
         <div id="contact" class="section">
             <h2 class="section-title" data-lang="sec_contact">CONTACT</h2>
             <div class="interactive-card" style="width: 100%; align-items: center; text-align: center;">
@@ -160,7 +139,6 @@ nav .links a:hover { color: #00ffff; text-shadow: 0 0 10px #00ffff; }
         </div>
     </div>
 </div>
-
 <script>
 const langData = {
     'ENG': {
@@ -202,7 +180,6 @@ const langData = {
         'cont_status': 'Çalışmaya Hazır', 'btn_email': 'E-posta'
     }
 };
-
 function switchLanguage(lang) {
     document.getElementById('lang-current').innerText = lang;
     const elements = document.querySelectorAll('[data-lang]');
@@ -213,7 +190,6 @@ function switchLanguage(lang) {
         }
     });
 }
-
 function toggleCardSimple(element) {
     const details = element.querySelector('.card-details');
     if (element.closest('#contact')) return;
@@ -223,14 +199,11 @@ function toggleCardSimple(element) {
     });
     if (!isActive) details.classList.add('active');
 }
-
 const canvas = document.getElementById('sky');
 const ctx = canvas.getContext('2d');
 const starsContainer = document.getElementById('stars');
 let W, H, t = 0;
-
 function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-
 for(let i=0; i<150; i++) {
     const star = document.createElement('div');
     star.style.position = 'absolute'; star.style.width = Math.random() * 3 + 'px'; star.style.height = star.style.width;
@@ -239,7 +212,6 @@ for(let i=0; i<150; i++) {
     star.style.opacity = Math.random(); star.style.boxShadow = '0 0 10px #fff';
     starsContainer.appendChild(star);
 }
-
 function draw() {
     t += 0.01; resize();
     const g = ctx.createLinearGradient(0,0,0,H);
