@@ -1,6 +1,7 @@
 # Personal Portfolio Website
 
-[![Live Demo](https://img.shields.io/badge/▲_LIVE_DEMO-vercel.app-ffffff?style=for-the-badge&labelColor=000000&logo=vercel&logoColor=white)](https://personal-portfolio-website.vercel.app)
+[![Live Demo](https://img.shields.io/badge/▲_LIVE_DEMO-PERSONAL--PORTFOLIO--WEBSITE--NU--LIME.VERCEL.APP-ffffff?style=for-the-badge&labelColor=000000&logo=vercel&logoColor=white)](https://personal-portfolio-website-nu-lime.vercel.app/)
+
 A modern, highly interactive personal portfolio website built with Next.js, React, Tailwind CSS, and Three.js. It features a fully responsive design, 3D elements, smooth animations, and multi-language support.
 
 ## ✨ Features
