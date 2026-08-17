@@ -45,10 +45,12 @@ function Avatar() {
 export function CharacterCanvas() {
   return (
     <Canvas
+      dpr={[1, 2]}
       camera={{ position: [0, 0, 5], fov: 35 }}
       gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
       style={{ background: 'transparent' }}
       onCreated={({ gl }) => {
+        gl.setPixelRatio(Math.min(typeof window !== 'undefined' ? window.devicePixelRatio : 1, 2))
         gl.domElement.addEventListener('webglcontextlost', (e) => e.preventDefault(), false)
       }}
     >
