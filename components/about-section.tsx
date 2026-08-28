@@ -27,7 +27,14 @@ export function AboutSection() {
   const words = useMemo(() => t.about.fullText.split(' '), [t.about.fullText])
 
   const cardsData = useMemo(() => [
-    { label: t.about.university, value: t.about.universityValue, sub: t.about.universitySub },
+    {
+      label: t.about.university,
+      isUniversity: true,
+      uni1Name: t.about.uni1Name,
+      uni1Sub: t.about.uni1Sub,
+      uni2Name: t.about.uni2Name,
+      uni2Sub: t.about.uni2Sub,
+    },
     { label: t.about.degree,     value: t.about.degreeValue,     sub: t.about.degreeSub },
     { label: t.about.role,       value: t.about.roleValue,       sub: t.about.roleSub },
     { label: t.about.location,   value: t.about.locationValue,   sub: '' },
@@ -208,7 +215,8 @@ export function AboutSection() {
       </h2>
 
       <div style={{
-        position: 'absolute', top: 0, bottom: 0, left: '26%', right: '26%',
+        position: 'absolute', top: 0, bottom: 0,
+        width: 'min(920px, 92vw)', left: '50%', transform: 'translateX(-50%)',
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
         paddingTop: '18vh', gap: '1.6rem', zIndex: 10, pointerEvents: 'none',
       }}>
@@ -226,18 +234,33 @@ export function AboutSection() {
           ))}
         </p>
 
-        <div className="grid grid-cols-2 gap-3 w-full" style={{ pointerEvents: 'auto' }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full" style={{ pointerEvents: 'auto' }}>
           {cardsData.map((card) => (
             <div key={card.label} data-card
-              className="group relative rounded-xl border border-neutral-800 bg-black/60 backdrop-blur-sm px-4 py-4 cursor-default transition-all duration-300 hover:border-transparent"
-              style={{ opacity: 0, willChange: 'transform, opacity', height: '80px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-              <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{ background: 'linear-gradient(135deg, #ec4899, #a855f7, #6366f1)', padding: '1px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude' }} />
-              <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{ background: 'linear-gradient(135deg, rgba(236,72,153,0.07), rgba(168,85,247,0.07), rgba(99,102,241,0.07))' }} />
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-600 mb-1 relative z-10">{card.label}</p>
-              <p className="font-mono text-xs text-neutral-100 font-semibold relative z-10">{card.value}</p>
-              {card.sub && <p className="font-mono text-[10px] text-neutral-500 mt-0.5 relative z-10">{card.sub}</p>}
+              className="group relative rounded-2xl border border-neutral-800 bg-black/70 backdrop-blur-md px-5 py-4 cursor-default transition-all duration-300 hover:border-transparent shadow-lg"
+              style={{ opacity: 0, willChange: 'transform, opacity', height: '96px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{ background: 'linear-gradient(135deg, #ec4899, #a855f7, #6366f1)', padding: '1.5px', WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)', WebkitMaskComposite: 'xor', maskComposite: 'exclude' }} />
+              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                style={{ background: 'linear-gradient(135deg, rgba(236,72,153,0.08), rgba(168,85,247,0.08), rgba(99,102,241,0.08))' }} />
+              <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-neutral-400 font-semibold mb-1.5 relative z-10">{card.label}</p>
+              {card.isUniversity ? (
+                <div className="relative z-10 flex flex-col gap-1">
+                  <div className="flex items-center justify-between font-mono text-xs md:text-[13px] text-white font-bold leading-tight">
+                    <span className="truncate pr-2">{card.uni1Name}</span>
+                    <span className="text-[10px] md:text-[11px] text-neutral-300 shrink-0 font-medium tracking-wide">{card.uni1Sub}</span>
+                  </div>
+                  <div className="flex items-center justify-between font-mono text-[11px] md:text-xs text-neutral-300 font-medium leading-tight">
+                    <span className="truncate pr-2">{card.uni2Name}</span>
+                    <span className="text-[10px] md:text-[11px] text-neutral-400 shrink-0 font-normal tracking-wide">{card.uni2Sub}</span>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <p className="font-mono text-sm md:text-[15px] text-white font-bold tracking-tight relative z-10">{card.value}</p>
+                  {card.sub && <p className="font-mono text-[11px] md:text-xs text-neutral-400 mt-1 relative z-10 font-medium">{card.sub}</p>}
+                </>
+              )}
             </div>
           ))}
         </div>

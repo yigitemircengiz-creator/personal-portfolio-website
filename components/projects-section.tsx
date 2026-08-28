@@ -13,6 +13,7 @@ export function ProjectsSection() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', message: '' })
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
+  const [openCardMenu, setOpenCardMenu] = useState<string | null>(null)
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -149,22 +150,23 @@ export function ProjectsSection() {
             <div className="w-full h-full rounded-2xl overflow-hidden"
               style={{ backgroundColor: '#111', border: '1.5px solid rgba(255,255,255,0.22)', position: 'relative' }}>
 
-              <div className="absolute top-0 left-0 right-0 z-10 flex items-center gap-4 px-6 py-4"
-                style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%)' }}>
+              <div className="absolute top-0 left-0 right-0 z-10 flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-3 sm:py-4 pr-16 md:pr-60"
+                style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0.85) 0%, transparent 100%)' }}>
                 <span className="font-extrabold text-white leading-none shrink-0"
-                  style={{ fontSize: 'clamp(1.4rem, 3.5vw, 2.2rem)', letterSpacing: '-0.03em' }}>
+                  style={{ fontSize: 'clamp(1.2rem, 3.5vw, 2.2rem)', letterSpacing: '-0.03em' }}>
                   {project.num}
                 </span>
-                <div>
-                  <div className="flex items-center gap-3">
-                    <p className="font-bold text-white text-sm tracking-wide uppercase">{project.name}</p>
-                    {project.stack && <p className="font-mono text-xs text-white">· {project.stack}</p>}
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <p className="font-bold text-white text-xs sm:text-sm tracking-wide uppercase truncate">{project.name}</p>
+                    {project.stack && <p className="font-mono text-[10px] sm:text-xs text-white/70 truncate">· {project.stack}</p>}
                   </div>
-                  <p className="font-mono text-[10px] text-white/40 mt-0.5">{project.desc}</p>
+                  <p className="font-mono text-[10px] text-white/40 mt-0.5 truncate">{project.desc}</p>
                 </div>
               </div>
 
-              <div className="absolute top-4 right-5 z-10 flex items-center gap-2">
+              {/* Desktop links */}
+              <div className="absolute top-4 right-5 z-20 hidden md:flex items-center gap-2">
                 {(project as any).github && (
                   <a href={(project as any).github} target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center justify-center w-10 h-10 rounded-full border border-white/25 bg-black/40 backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:bg-white/10"
@@ -179,6 +181,52 @@ export function ProjectsSection() {
                     className="inline-flex items-center rounded-full border border-white/25 bg-black/40 px-5 py-2 text-[11px] font-mono uppercase tracking-[0.18em] text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-white/60 hover:text-white">
                     Live Project
                   </a>
+                )}
+              </div>
+
+              {/* Mobile 3-line Action Menu */}
+              <div className="absolute top-3.5 right-4 z-20 md:hidden">
+                <button
+                  onClick={() => setOpenCardMenu(openCardMenu === project.num ? null : project.num)}
+                  aria-label="Project actions"
+                  className="flex items-center justify-center w-9 h-9 rounded-full border border-white/30 bg-black/70 backdrop-blur-md text-white transition-all active:scale-95 shadow-lg"
+                >
+                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
+                </button>
+
+                {openCardMenu === project.num && (
+                  <div className="absolute right-0 top-full mt-2 w-44 rounded-xl bg-black/95 backdrop-blur-xl border border-white/20 p-1.5 shadow-2xl z-30 flex flex-col gap-1">
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setOpenCardMenu(null)}
+                        className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-white/15 text-[11px] font-mono uppercase tracking-wider text-white transition-colors"
+                      >
+                        <span>Live Project</span>
+                        <svg className="w-3.5 h-3.5 text-neutral-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    )}
+                    {(project as any).github && (
+                      <a
+                        href={(project as any).github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setOpenCardMenu(null)}
+                        className="flex items-center justify-between px-3 py-2 rounded-lg hover:bg-white/15 text-[11px] font-mono uppercase tracking-wider text-white transition-colors"
+                      >
+                        <span>GitHub</span>
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="white">
+                          <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                      </a>
+                    )}
+                  </div>
                 )}
               </div>
 
@@ -207,39 +255,41 @@ export function ProjectsSection() {
       <div style={{ position: 'sticky', top: 0, height: '100vh', zIndex: 100, overflow: 'hidden', pointerEvents: 'none' }} data-contact-sticky>
         <div
           data-contact-inner
-          className="absolute inset-0 flex items-center"
-          style={{ backgroundColor: 'white', padding: '4rem 5rem', transform: 'translateY(105vh)', willChange: 'transform', gap: '5rem', borderRadius: '24px 24px 0 0', pointerEvents: 'auto' }}
+          className="absolute inset-0 flex flex-col lg:flex-row items-center justify-center p-6 sm:p-10 md:p-14 lg:p-20 gap-8 lg:gap-16 overflow-y-auto lg:overflow-visible"
+          style={{ backgroundColor: 'white', transform: 'translateY(105vh)', willChange: 'transform', borderRadius: '24px 24px 0 0', pointerEvents: 'auto' }}
         >
-          {/* Sol */}
-          <div className="flex flex-col gap-6" style={{ flex: '0 0 38%' }}>
-            <h2 className="font-extrabold leading-none tracking-tight animate-gradient-shift"
+          {/* Sol / Üst */}
+          <div className="flex flex-col gap-3 sm:gap-6 w-full lg:w-[38%] shrink-0">
+            <h2 className="font-extrabold leading-none tracking-tight animate-gradient-shift w-full"
               style={{
-                fontSize: 'clamp(3.5rem, 8.5vw, 8.5rem)', letterSpacing: '-0.03em', lineHeight: 1.05,
+                fontSize: 'clamp(2rem, 7.5vw, 7.5rem)', letterSpacing: '-0.03em', lineHeight: 1.05,
                 background: 'linear-gradient(90deg, #ec4899, #d946ef, #6366f1, #ec4899)',
                 backgroundSize: '200% 100%',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text',
-                whiteSpace: 'pre-line'
               }}>
-              {t.projects.contactTitle}
+              <span className="hidden lg:block whitespace-pre-line">{t.projects.contactTitle}</span>
+              <span className="lg:hidden whitespace-normal uppercase block w-full">{t.projects.contactTitle.replace(/\n/g, ' ')}</span>
             </h2>
-            <a href="mailto:yigitemircengiz@gmail.com" className="font-mono text-sm text-neutral-500 hover:text-black transition-colors">
-              yigitemircengiz@gmail.com
-            </a>
-            <div className="flex gap-4">
-              <a href="https://www.linkedin.com/in/yi%C4%9Fit-emir-cengiz/" target="_blank" rel="noopener noreferrer" className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-400 hover:text-black transition-colors">LinkedIn</a>
-              <a href="https://github.com/yigitemircengiz-creator" target="_blank" rel="noopener noreferrer" className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-400 hover:text-black transition-colors">GitHub</a>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              <a href="mailto:yigitemircengiz@gmail.com" className="font-mono text-xs sm:text-sm text-neutral-500 hover:text-black transition-colors">
+                yigitemircengiz@gmail.com
+              </a>
+              <div className="flex gap-4">
+                <a href="https://www.linkedin.com/in/yi%C4%9Fit-emir-cengiz/" target="_blank" rel="noopener noreferrer" className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-400 hover:text-black transition-colors">LinkedIn</a>
+                <a href="https://github.com/yigitemircengiz-creator" target="_blank" rel="noopener noreferrer" className="font-mono text-xs uppercase tracking-[0.2em] text-neutral-400 hover:text-black transition-colors">GitHub</a>
+              </div>
             </div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-300 mt-2">
+            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-400">
               {t.projects.locationString}
             </p>
           </div>
 
-          {/* Sağ: form */}
-          <form onSubmit={handleFormSubmit} className="flex flex-col gap-5" style={{ flex: 1 }}>
+          {/* Sağ / Alt: form */}
+          <form onSubmit={handleFormSubmit} className="flex flex-col gap-4 sm:gap-5 w-full flex-1">
             <input type="text" placeholder={t.projects.namePlaceholder} required
               value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})}
               className="border-b border-neutral-200 py-3 text-sm font-mono text-black placeholder-neutral-300 outline-none focus:border-black transition-colors bg-transparent w-full" />
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <input type="email" placeholder={t.projects.emailPlaceholder} required
                 value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})}
                 className="flex-1 border-b border-neutral-200 py-3 text-sm font-mono text-black placeholder-neutral-300 outline-none focus:border-black transition-colors bg-transparent" />

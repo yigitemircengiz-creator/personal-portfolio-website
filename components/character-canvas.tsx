@@ -5,7 +5,7 @@ import { Environment } from '@react-three/drei'
 import { useRef, Suspense } from 'react'
 import * as THREE from 'three'
 
-function Avatar() {
+function Avatar({ isReady = true }: { isReady?: boolean }) {
   const groupRef = useRef<THREE.Group>(null)
   const matRef = useRef<THREE.MeshStandardMaterial>(null)
   const texture = useLoader(THREE.TextureLoader, '/avatar.png')
@@ -14,9 +14,17 @@ function Avatar() {
   useFrame((state, delta) => {
     if (!groupRef.current || !matRef.current) return
 
-    // opacity animasyonu — yüklenince hemen başlasın
-    clock.current += delta
-    matRef.current.opacity = THREE.MathUtils.clamp(clock.current * 1.8, 0, 1)
+    if (isReady) {
+      clock.current += delta
+      const progress = THREE.MathUtils.clamp(clock.current * 1.4, 0, 1)
+      matRef.current.opacity = progress
+      
+      const currentScale = THREE.MathUtils.lerp(0.85, 1, progress)
+      groupRef.current.scale.set(currentScale, currentScale, currentScale)
+    } else {
+      matRef.current.opacity = 0
+      groupRef.current.scale.set(0.85, 0.85, 0.85)
+    }
 
     const { x, y } = state.pointer
     const t = state.clock.elapsedTime
@@ -42,15 +50,15 @@ function Avatar() {
   )
 }
 
-export function CharacterCanvas() {
+export function CharacterCanvas({ isReady = true }: { isReady?: boolean }) {
   return (
     <Canvas
-      dpr={[1, 2]}
+      dpr={[1, 4]}
       camera={{ position: [0, 0, 5], fov: 35 }}
       gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
       style={{ background: 'transparent' }}
       onCreated={({ gl }) => {
-        gl.setPixelRatio(Math.min(typeof window !== 'undefined' ? window.devicePixelRatio : 1, 2))
+        gl.setPixelRatio(Math.min(typeof window !== 'undefined' ? window.devicePixelRatio : 1, 4))
         gl.domElement.addEventListener('webglcontextlost', (e) => e.preventDefault(), false)
       }}
     >
@@ -58,7 +66,7 @@ export function CharacterCanvas() {
       <directionalLight position={[2, 3, 4]} intensity={1.1} />
       <pointLight position={[-3, -2, 2]} intensity={0.4} color="#9ca3af" />
       <Suspense fallback={null}>
-        <Avatar />
+        <Avatar isReady={isReady} />
         <Environment preset="night" />
       </Suspense>
     </Canvas>

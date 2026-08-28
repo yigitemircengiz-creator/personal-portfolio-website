@@ -4,9 +4,13 @@ import dynamic from 'next/dynamic'
 import { AboutSection } from '@/components/about-section'
 import { SkillsSection } from '@/components/skills-section'
 import { ProjectsSection } from '@/components/projects-section'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { Language } from '@/lib/translations'
+import { LoadingScreen } from '@/components/loading-screen'
+import { ScrollToTop } from '@/components/scroll-to-top'
+import { FloatingNavbar } from '@/components/floating-navbar'
+import { MobileNavDrawer } from '@/components/mobile-nav-drawer'
 
 const CharacterCanvas = dynamic(
   () => import('@/components/character-canvas').then((m) => m.CharacterCanvas),
@@ -15,9 +19,10 @@ const CharacterCanvas = dynamic(
 
 const NAV = ['About', 'Skills', 'Projects', 'Contact']
 
-function HeroSection() {
+function HeroSection({ isLoading }: { isLoading: boolean }) {
   const heroRef = useRef<HTMLElement>(null)
   const [langOpen, setLangOpen] = useState(false)
+  const [mobileNavOpen, setMobileNavOpen] = useState(false)
   const { lang, setLang, t } = useLanguage()
   
   const languages: Language[] = ['eng', 'tur', 'ger']
@@ -35,20 +40,20 @@ function HeroSection() {
   };
 
   useEffect(() => {
+    if (isLoading) return
+
     const hero = heroRef.current
     if (!hero) return
 
     const els = hero.querySelectorAll<HTMLElement>('[data-hero]')
 
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        els.forEach((el) => {
-          el.style.transition = 'opacity 0.8s ease, transform 0.8s ease'
-          el.style.opacity = '1'
-          el.style.transform = 'translate(0,0) scale(1)'
-        })
+    const timer = setTimeout(() => {
+      els.forEach((el) => {
+        el.style.transition = 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)'
+        el.style.opacity = '1'
+        el.style.transform = 'translate(0,0) scale(1)'
       })
-    })
+    }, 150)
 
     const handleScroll = () => {
       const rect = hero.getBoundingClientRect()
@@ -73,8 +78,11 @@ function HeroSection() {
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isLoading])
 
   return (
     <section ref={heroRef} className="relative h-screen w-full overflow-hidden bg-black">
@@ -86,7 +94,7 @@ function HeroSection() {
           <div className="font-semibold whitespace-nowrap transition-colors duration-300 hover:text-white">
             {t.hero.name}
           </div>
-          <div className="flex items-center gap-8 md:gap-12">
+          <div className="flex items-center gap-4 md:gap-12">
             <div className="hidden md:flex items-center gap-8">
               <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="transition-colors duration-300 hover:text-white">{t.nav.about}</a>
               <a href="#skills" onClick={(e) => scrollToSection(e, 'skills')} className="transition-colors duration-300 hover:text-white">{t.nav.skills}</a>
@@ -94,7 +102,7 @@ function HeroSection() {
               <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="transition-colors duration-300 hover:text-white">{t.nav.contact}</a>
             </div>
             
-            <div className="relative">
+            <div className="hidden md:block relative">
               <button 
                 onClick={() => setLangOpen(!langOpen)} 
                 className="flex items-center gap-1 transition-colors hover:text-white"
@@ -122,20 +130,38 @@ function HeroSection() {
                 ))}
               </div>
             </div>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              onClick={() => setMobileNavOpen(true)}
+              aria-label="Open mobile menu"
+              className="md:hidden flex items-center justify-center p-2 rounded-full border border-white/20 bg-black/50 text-white backdrop-blur-sm transition-all hover:border-white/50 active:scale-95 cursor-pointer"
+            >
+              <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
         </nav>
       </div>
     </header>
 
+      {/* Mobile Slide-Up Drawer */}
+      <MobileNavDrawer
+        isOpen={mobileNavOpen}
+        onClose={() => setMobileNavOpen(false)}
+        onNavigate={scrollToSection}
+      />
+
       <div className="absolute inset-0 flex items-center justify-center">
         <h1 data-hero="up" aria-label="HI, I'M YİĞİT"
-          className="pointer-events-none absolute left-1/2 top-[5%] z-10 -translate-x-1/2 select-none whitespace-nowrap text-center font-sans text-[15vw] font-extrabold leading-none tracking-tighter text-white uppercase"
-          style={{ opacity: 0, transform: 'translateY(-40px)' }}>
+          className="pointer-events-none absolute left-0 right-0 top-[5%] z-10 w-full px-2 text-center font-sans font-extrabold leading-none tracking-tighter text-white uppercase select-none"
+          style={{ fontSize: 'clamp(3rem, 14.5vw, 16rem)', opacity: 0, transform: 'translateY(-40px)' }}>
           HI, I&apos;M YİĞİT
         </h1>
 
         <div data-hero="down" className="relative z-20 h-[78vh] w-full max-w-2xl" style={{ opacity: 0, transform: 'translateY(40px)' }}>
-          <CharacterCanvas />
+          <CharacterCanvas isReady={!isLoading} />
         </div>
 
         <p data-hero="left"
@@ -165,11 +191,20 @@ function HeroSection() {
 }
 
 export default function Page() {
+  const [isLoading, setIsLoading] = useState(true)
+
+  const handleLoadingComplete = useCallback(() => {
+    setIsLoading(false)
+  }, [])
+
   return (
     <main className="relative w-full bg-black">
+      <LoadingScreen onComplete={handleLoadingComplete} />
+      <FloatingNavbar />
+      <ScrollToTop />
       {/* Hero — siyah, en üstte */}
       <div style={{ borderRadius: '0 0 24px 24px', overflow: 'hidden', position: 'relative', zIndex: 10 }}>
-        <HeroSection />
+        <HeroSection isLoading={isLoading} />
       </div>
 
       {/* About — siyah, hero'nun üstüne biner */}
